@@ -88,6 +88,7 @@
                     id="customFile"
                     class="form-control"
                     ref="files"
+                    @change="uploadFile"
                   />
                 </div>
                 <img
@@ -263,6 +264,27 @@ export default {
           console.log("新增失敗！");
         }
       });
+    },
+    uploadFile() {
+      console.log(this);
+      const uploadFile = this.$refs.files.files[0]; //要上傳的檔案本身
+      const vm = this;
+      const formData = new FormData();
+      formData.append("file-to-upload", uploadFile);
+      const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
+      this.$http
+        .post(url, formData, {
+          headers: {
+            "Content-type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          if (response.data.success) {
+            // vm.tempProduct.imageUrl = response.data.imageUrl;
+            vm.$set(vm.tempProduct, "imageUrl", response.data.imageUrl);
+          }
+        });
     },
   },
   created() {
