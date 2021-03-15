@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"></loading>
     <div class="text-right mt-4">
       <button class="btn btn-primary" @click="openModal(true)">
         建立新產品
@@ -81,7 +82,10 @@
                 <div class="form-group">
                   <label for="customFile"
                     >或 上傳圖片
-                    <i class="fas fa-spinner fa-spin"></i>
+                    <i
+                      class="fas fa-spinner fa-spin"
+                      v-if="status.fileUploading"
+                    ></i>
                   </label>
                   <input
                     type="file"
@@ -224,13 +228,20 @@ export default {
     return {
       products: [],
       tempProduct: {},
+      isNew: false,
+      isLoading: false,
+      status: {
+        fileUploading: false,
+      },
     };
   },
   methods: {
     getProducts() {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products`;
       const vm = this;
+      vm.isLoading = true;
       this.$http.get(api).then((response) => {
+        vm.isLoading = false;
         vm.products = response.data.products;
       });
     },
@@ -240,7 +251,7 @@ export default {
         this.isNew = true;
       } else {
         this.tempProduct = Object.assign({}, item);
-        this.isNew = false;
+        this.isNew = true;
       }
       $("#productModal").modal("show");
     },
@@ -272,6 +283,7 @@ export default {
       const formData = new FormData();
       formData.append("file-to-upload", uploadFile);
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
+      vm.status.fileUploading = true;
       this.$http
         .post(url, formData, {
           headers: {
@@ -280,6 +292,8 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
+          vm.status.fileUploading = false;
+
           if (response.data.success) {
             // vm.tempProduct.imageUrl = response.data.imageUrl;
             vm.$set(vm.tempProduct, "imageUrl", response.data.imageUrl);
