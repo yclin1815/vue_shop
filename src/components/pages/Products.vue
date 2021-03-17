@@ -260,7 +260,7 @@ export default {
         this.isNew = true;
       } else {
         this.tempProduct = Object.assign({}, item);
-        this.isNew = true;
+        this.isNew = false;
       }
       $("#productModal").modal("show");
     },
