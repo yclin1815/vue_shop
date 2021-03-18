@@ -16,12 +16,12 @@
           >
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/admin/products"
+          <router-link class="nav-link" to="/admin/orders"
             ><i class="fas fa-clipboard-list"></i> 訂單列表</router-link
           >
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/admin/products"
+          <router-link class="nav-link" to="/admin/coupons"
             ><i class="fas fa-gift"></i> 優惠券</router-link
           >
         </li>
@@ -36,7 +36,7 @@
       </h6>
       <ul class="nav flex-column mb-2">
         <li class="nav-item">
-          <router-link class="nav-link" to="/admin/products"
+          <router-link class="nav-link" to="/customerOrder"
             ><i class="fas fa-cash-register"></i> 模擬訂單</router-link
           >
         </li>
