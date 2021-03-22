@@ -5,6 +5,7 @@ import Login from '@/components/pages/Login'
 import Products from '@/components/pages/Products'
 import Coupons from '@/components/pages/Coupons';
 import Orders from '@/components/pages/Orders';
+import CustomerOrders from '@/components/pages/CustomerOrders';
 
 Vue.use(Router)
 
@@ -14,6 +15,11 @@ export default new Router({
     {
       path: '*',
       redirect: 'login',
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
     },
     {
       path: '/admin',
@@ -41,9 +47,16 @@ export default new Router({
       ],
     },
     {
-      path: '/login',
-      name: 'Login',
-      component: Login,
+      path: '/',
+      name: 'Dashboard',
+      component: Dashboard,
+      children: [
+        {
+          path: 'customer_orders',
+          name: 'CustomerOrders',
+          component: CustomerOrders,
+        },
+      ],
     },
   ]
 })

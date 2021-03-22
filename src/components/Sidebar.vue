@@ -36,7 +36,7 @@
       </h6>
       <ul class="nav flex-column mb-2">
         <li class="nav-item">
-          <router-link class="nav-link" to="/customerOrder"
+          <router-link class="nav-link" to="/customer_orders"
             ><i class="fas fa-cash-register"></i> 模擬訂單</router-link
           >
         </li>
