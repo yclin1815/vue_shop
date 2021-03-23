@@ -245,7 +245,7 @@
                 name="收件人姓名"
                 id="username"
                 v-model="form.user.name"
-                placeholder="輸入姓名"
+                placeholder="請輸入姓名"
                 :class="classes"
               />
               <!-- 錯誤訊息 -->
@@ -433,6 +433,9 @@ export default {
       vm.isLoading = true;
       this.$http.post(url, { data: order }).then((response) => {
         console.log(response);
+        if (response.data.success) {
+          vm.$router.push(`/customer_checkout/${response.data.orderId}`);
+        }
         // vm.getCart();
         vm.isLoading = false;
       });
